@@ -26,6 +26,12 @@ const Footer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
+  border-radius: 10;
+  border-top-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border: ${({ alignment, theme }) => alignment === 'right' ? '0' : 'solid 1px white'};
+  background-color: ${({ alignment, theme }) => alignment === 'right' ? theme.colors.primary : 'transparent'};
   ${({ theme }) => theme.message.card.footer.css}
 `;
 
@@ -34,6 +40,10 @@ const Cover = styled.Image`
   height: 150;
   ${({ theme }) => theme.message.card.cover.css}
 `;
+
+const StyledText = styled.Text`
+  color: ${({ alignment, theme }) => alignment === 'right' ? 'black' : 'white'};
+`
 
 /**
  * UI component for card in attachments.
@@ -111,17 +121,16 @@ export const Card = withMessageContentContext(
               source={{ uri: makeImageCompatibleUrl(image_url || thumb_url) }}
               resizMode="cover"
             />
-            <Footer>
+            <Footer alignment={alignment}>
               <View
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  backgroundColor: 'transperant',
                 }}
               >
-                {title && <Text>{title}</Text>}
-                {text && <Text>{text}</Text>}
-                <Text>{this.trimUrl(title_link || og_scrape_url)}</Text>
+                {title && <StyledText alignment={alignment}>{title}</StyledText>}
+                {text && <StyledText alignment={alignment}>{text}</StyledText>}
+                <StyledText alignment={alignment}>{this.trimUrl(title_link || og_scrape_url)}</StyledText>
               </View>
               {type === 'giphy' && <Image source={giphyLogo} />}
             </Footer>

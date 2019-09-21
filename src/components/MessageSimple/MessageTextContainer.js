@@ -37,7 +37,7 @@ const TextContainer = styled.View`
   background-color: ${({ theme, alignment, type, status }) =>
     alignment === 'left' || type === 'error' || status === 'failed'
       ? theme.colors.light
-      : theme.colors.light};
+      : theme.colors.primary};
   ${({ theme }) => theme.message.text.css}
 `;
 
@@ -57,6 +57,13 @@ export const MessageTextContainer = (props) => {
 
   if (!message.text) return false;
 
+  const textColor = isMyMessage(message) ? '#000' : '#fff';
+  const textStyle = {
+    text: {
+      color: textColor
+    }
+  };
+
   return (
     <React.Fragment>
       <TextContainer
@@ -66,10 +73,10 @@ export const MessageTextContainer = (props) => {
         type={message.type}
       >
         {!MessageText ? (
-          renderText(message)
+          renderText(message, textStyle)
         ) : (
-          <MessageText {...props} renderText={renderText} />
-        )}
+            <MessageText {...props} renderText={renderText} />
+          )}
       </TextContainer>
     </React.Fragment>
   );

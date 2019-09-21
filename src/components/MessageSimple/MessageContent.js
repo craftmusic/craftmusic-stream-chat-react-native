@@ -47,7 +47,7 @@ const Container = styled.TouchableOpacity`
 const ContainerInner = styled.View`
   align-items: ${({ alignment }) =>
     alignment === 'left' ? 'flex-start' : 'flex-end'};
-  ${({ theme }) => theme.message.content.containerInner.css}
+  ${({ theme }) => theme.message.content.containerInner.css}}
 `;
 
 const MetaContainer = styled.View`
