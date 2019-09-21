@@ -1,5 +1,8 @@
 {
-  "plugins": ["babel", "markdown"],
+  "plugins": [
+    "babel",
+    "markdown"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -9,13 +12,26 @@
     "no-console": 0,
     "no-mixed-spaces-and-tabs": 1,
     "comma-dangle": 0,
-    "no-unused-vars": [1, { "ignoreRestSiblings": true }],
-    "eqeqeq": [2, "smart"],
+    "no-unused-vars": [
+      1,
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "eqeqeq": [
+      2,
+      "smart"
+    ],
     "no-useless-concat": 2,
     "default-case": 2,
     "no-self-compare": 2,
     "prefer-const": 1,
-    "no-underscore-dangle": [2, { "allowAfterThis": true }],
+    "no-underscore-dangle": [
+      2,
+      {
+        "allowAfterThis": true
+      }
+    ],
     "object-shorthand": 1,
     "babel/no-invalid-this": 2,
     "array-callback-return": 2,
@@ -24,8 +40,15 @@
     "require-await": 2,
     "react/prop-types": 0,
     "no-var": 2,
-    "linebreak-style": [2, "unix"],
-    "semi": [1, "always"]
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "semi": [
+      1,
+      "always"
+    ],
+    "react/display-name": 0
   },
   "env": {
     "es6": true,
@@ -41,7 +64,9 @@
   },
   "overrides": [
     {
-      "files": ["*.md"],
+      "files": [
+        "*.md"
+      ],
       "rules": {
         "react/jsx-no-undef": 0,
         "react/react-in-jsx-scope": 0,

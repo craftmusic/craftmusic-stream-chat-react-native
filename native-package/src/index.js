@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { registerNativeHandlers } from 'stream-chat-react-native-core';
+import { registerNativeHandlers } from 'craftmusic-stream-chat-react-native-core';
 import NetInfo from '@react-native-community/netinfo';
 import ImagePicker from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
@@ -50,7 +50,7 @@ if (Platform.OS === 'android') {
   if (typeof Symbol === 'undefined') {
     require('es6-symbol/implement');
     if (Array.prototype[Symbol.iterator] === undefined) {
-      Array.prototype[Symbol.iterator] = function() {
+      Array.prototype[Symbol.iterator] = function () {
         let i = 0;
         return {
           next: () => ({
@@ -63,4 +63,4 @@ if (Platform.OS === 'android') {
   }
 }
 
-export * from 'stream-chat-react-native-core';
+export * from 'craftmusic-stream-chat-react-native-core';
