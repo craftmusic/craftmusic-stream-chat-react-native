@@ -1,8 +1,5 @@
 {
-  "plugins": [
-    "babel",
-    "markdown"
-  ],
+  "plugins": ["babel", "markdown"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -18,10 +15,7 @@
         "ignoreRestSiblings": true
       }
     ],
-    "eqeqeq": [
-      2,
-      "smart"
-    ],
+    "eqeqeq": [2, "smart"],
     "no-useless-concat": 2,
     "default-case": 2,
     "no-self-compare": 2,
@@ -40,14 +34,8 @@
     "require-await": 2,
     "react/prop-types": 0,
     "no-var": 2,
-    "linebreak-style": [
-      2,
-      "unix"
-    ],
-    "semi": [
-      1,
-      "always"
-    ],
+    "linebreak-style": [2, "unix"],
+    "semi": [1, "always"],
     "react/display-name": 0
   },
   "env": {
@@ -64,9 +52,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.md"
-      ],
+      "files": ["*.md"],
       "rules": {
         "react/jsx-no-undef": 0,
         "react/react-in-jsx-scope": 0,

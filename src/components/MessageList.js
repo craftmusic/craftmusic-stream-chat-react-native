@@ -512,20 +512,20 @@ const MessageList = withChannelContext(
       return (
         <React.Fragment>
           {// Mask for edit state
-          this.props.editing && this.props.disableWhileEditing && (
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                backgroundColor: 'black',
-                opacity: 0.4,
-                height: '100%',
-                width: '100%',
-                zIndex: 100,
-              }}
-              collapsable={false}
-              onPress={this.props.clearEditingState}
-            />
-          )}
+            this.props.editing && this.props.disableWhileEditing && (
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  backgroundColor: 'black',
+                  opacity: 0.4,
+                  height: '100%',
+                  width: '100%',
+                  zIndex: 100,
+                }}
+                collapsable={false}
+                onPress={this.props.clearEditingState}
+              />
+            )}
           <View
             collapsable={false}
             style={{ flex: 1, alignItems: 'center', width: '100%' }}

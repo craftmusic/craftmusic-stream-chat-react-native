@@ -325,6 +325,7 @@ export const MessageContent = themed(
             {message.status === 'failed' ? (
               <FailedText>Message failed - try again</FailedText>
             ) : null}
+            <MetaText>{message.user.name}</MetaText>
             {reactionsEnabled &&
               message.latest_reactions &&
               message.latest_reactions.length > 0 && (

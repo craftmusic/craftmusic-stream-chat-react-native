@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@stream-io/styled-components';
+import styled, { withTheme } from '@stream-io/styled-components';
 import PropTypes from 'prop-types';
 
 const InputBox = styled.TextInput`
@@ -9,7 +9,7 @@ const InputBox = styled.TextInput`
   ${({ theme }) => theme.messageInput.inputBox.css}
 `;
 
-export class AutoCompleteInput extends React.PureComponent {
+const AutoCompleteInput = withTheme(class AutoCompleteInput extends React.PureComponent {
   static propTypes = {
     value: PropTypes.string,
     openSuggestions: PropTypes.func,
@@ -112,7 +112,7 @@ export class AutoCompleteInput extends React.PureComponent {
        */
       new RegExp(
         `\\${currentTrigger}${`[^\\${currentTrigger}${
-          triggers[currentTrigger].allowWhitespace ? '' : '\\s'
+        triggers[currentTrigger].allowWhitespace ? '' : '\\s'
         }]`}*$`,
       ),
     );
@@ -242,6 +242,7 @@ export class AutoCompleteInput extends React.PureComponent {
   };
 
   render() {
+    const { theme } = this.props;
     return (
       <InputBox
         ref={this.props.setInputBoxRef}
@@ -249,10 +250,13 @@ export class AutoCompleteInput extends React.PureComponent {
         onChangeText={(text) => {
           this.handleChange(text);
         }}
+        placeholderTextColor={theme.colors.textGrey}
         value={this.state.text}
         onSelectionChange={this.handleSelectionChange}
         multiline
       />
     );
   }
-}
+});
+
+export { AutoCompleteInput };

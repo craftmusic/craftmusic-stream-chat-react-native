@@ -12,4 +12,6 @@ export { CloseButton } from './CloseButton';
 export { IconBadge } from './IconBadge';
 export { ReactionPicker } from './ReactionPicker';
 export { ReactionPickerWrapper } from './ReactionPickerWrapper';
-export { withChannelListMessengerFunctionality } from './hoc/withChannelListMessengerFunctionality'
+export {
+  withChannelListMessengerFunctionality,
+} from './hoc/withChannelListMessengerFunctionality';
