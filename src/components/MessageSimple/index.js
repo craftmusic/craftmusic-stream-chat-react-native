@@ -64,6 +64,8 @@ export const MessageSimple = themed(
       dismissKeyboard: PropTypes.func,
       /** Handler for actions. Actions in combination with attachments can be used to build [commands](https://getstream.io/chat/docs/#channel_commands). */
       handleAction: PropTypes.func,
+      /** Handler resend the message. */
+      handleRetry: PropTypes.func,
       /** Current [message object](https://getstream.io/chat/docs/#message_format) */
       message: PropTypes.object,
       /**
@@ -95,6 +97,16 @@ export const MessageSimple = themed(
       showMessageStatus: PropTypes.bool,
       /** Latest message id on current channel */
       lastReceivedId: PropTypes.string,
+      /**
+       * Style object for actionsheet (used to message actions).
+       * Supported styles: https://github.com/beefe/react-native-actionsheet/blob/master/lib/styles.js
+       */
+      actionSheetStyles: PropTypes.object,
+      /**
+       * Custom UI component for attachment icon for type 'file' attachment.
+       * Defaults to: https://github.com/GetStream/stream-chat-react-native/blob/master/src/components/FileIcon.js
+       */
+      AttachmentFileIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     };
 
     static defaultProps = {

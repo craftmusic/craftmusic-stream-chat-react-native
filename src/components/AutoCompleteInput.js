@@ -17,6 +17,12 @@ const AutoCompleteInput = withTheme(class AutoCompleteInput extends React.PureCo
     triggerSettings: PropTypes.object,
     getUsers: PropTypes.func,
     setInputBoxRef: PropTypes.func,
+    /**
+     * Additional props for underlying TextInput component. These props will be forwarded as it is to TextInput component.
+     *
+     * @see See https://facebook.github.io/react-native/docs/textinput#reference
+     */
+    additionalTextInputProps: PropTypes.object,
   };
 
   static defaultProps = {
@@ -254,6 +260,7 @@ const AutoCompleteInput = withTheme(class AutoCompleteInput extends React.PureCo
         value={this.state.text}
         onSelectionChange={this.handleSelectionChange}
         multiline
+        {...this.props.additionalTextInputProps}
       />
     );
   }

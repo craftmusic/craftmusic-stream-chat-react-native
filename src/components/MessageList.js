@@ -9,6 +9,7 @@ import { Message } from './Message';
 import { EventIndicator } from './EventIndicator';
 import { MessageNotification } from './MessageNotification';
 import { DateSeparator } from './DateSeparator';
+import { TypingIndicator } from './TypingIndicator';
 
 const ListContainer = styled.FlatList`
   flex: 1;
@@ -81,6 +82,11 @@ const MessageList = withChannelContext(
       client: PropTypes.object,
       /** **Available from [channel context](https://getstream.github.io/stream-chat-react-native/#channelcontext)** */
       Attachment: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+      /**
+       * Custom UI component for attachment icon for type 'file' attachment.
+       * Defaults to: https://github.com/GetStream/stream-chat-react-native/blob/master/src/components/FileIcon.js
+       */
+      AttachmentFileIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
       /** **Available from [channel context](https://getstream.github.io/stream-chat-react-native/#channelcontext)** */
       Message: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
       /** **Available from [channel context](https://getstream.github.io/stream-chat-react-native/#channelcontext)** */
@@ -127,7 +133,7 @@ const MessageList = withChannelContext(
       /**
        * A message object which is currently in edit state.
        */
-      editing: PropTypes.object,
+      editing: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
       loadMore: PropTypes.func,
       /**
        * Typing indicator UI component to render
@@ -187,6 +193,11 @@ const MessageList = withChannelContext(
        *
        */
       HeaderComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+      /**
+       * Style object for actionsheet (used to message actions).
+       * Supported styles: https://github.com/beefe/react-native-actionsheet/blob/master/lib/styles.js
+       */
+      actionSheetStyles: PropTypes.object,
     };
 
     static defaultProps = {
@@ -197,6 +208,7 @@ const MessageList = withChannelContext(
       loadMoreThreshold: 2,
       messageGrouping: true,
       dismissKeyboardOnMessageTouch: true,
+      TypingIndicator,
     };
 
     componentDidUpdate(prevProps) {
@@ -468,6 +480,8 @@ const MessageList = withChannelContext(
             retrySendMessage={this.props.retrySendMessage}
             openThread={this.props.openThread}
             emojiData={this.props.emojiData}
+            actionSheetStyles={this.props.actionSheetStyles}
+            AttachmentFileIcon={this.props.AttachmentFileIcon}
           />
         );
       }
@@ -476,8 +490,11 @@ const MessageList = withChannelContext(
     handleScroll = (event) => {
       const yOffset = event.nativeEvent.contentOffset.y;
       const removeNewMessageNotification = yOffset <= 0;
-
-      if (!this.props.threadList && removeNewMessageNotification)
+      if (
+        !this.props.threadList &&
+        removeNewMessageNotification &&
+        this.props.channel.countUnread() > 0
+      )
         this.props.markRead();
 
       this.setState((prevState) => ({

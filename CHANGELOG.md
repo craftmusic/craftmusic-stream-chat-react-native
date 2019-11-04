@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.3.7] 2019-11-04
+
+- Adding support for `AttachmentFileIcon` prop.
+
+## [0.3.6] 2019-11-04
+
+- Adding support for `actionSheetStyles` prop, so as to add more customizability for styles of actionsheet.
+
+## [0.3.5] 2019-10-28
+
+- Fixing some styles for actionsheet in MessageSimple component.
+
+## [0.3.4] 2019-10-03
+
+- Avoiding query channel api call when there are no more messages to render
+- Making mardRead api call only if unread count is > 0
+
+## [0.3.3] 2019-10-02
+
+- Making empty value of `typing` object - immutable
+- Adding support for `SendButton` UI component prop
+
+## [0.3.2] 2019-10-01
+
+- Fixing bug in themed HOC
+
+## [0.3.1] 2019-09-30
+
+- Adding typescript declaration file for expo and native package
+
+## [0.3.0] 2019-09-30
+
+- Adding typescript declaration file
+- Adding style customization support for actionsheet
+
 ## [0.2.6] 2019-09-23
 
 - Fixing expo package for NetInfo changes

@@ -15,3 +15,5 @@ export { ReactionPickerWrapper } from './ReactionPickerWrapper';
 export {
   withChannelListMessengerFunctionality,
 } from './hoc/withChannelListMessengerFunctionality';
+export { SendButton } from './SendButton';
+export { FileIcon } from './FileIcon';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Text } from 'react-native';
+import { Dimensions } from 'react-native';
 import moment from 'moment';
 import { MessageContentContext } from '../../context';
 import styled from '@stream-io/styled-components';
@@ -86,6 +86,48 @@ const FailedText = styled.Text`
   margin-right: 5px;
 `;
 
+const ActionSheetTitleContainer = styled.View`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.message.actionSheet.titleContainer.css};
+`;
+
+const ActionSheetTitleText = styled.Text`
+  color: #757575;
+  font-size: 14;
+  ${({ theme }) => theme.message.actionSheet.titleText.css};
+`;
+
+const ActionSheetButtonContainer = styled.View`
+  height: 50;
+  width: 100%;
+  align-items: center;
+  background-color: #fff;
+  justify-content: center;
+  ${({ theme }) => theme.message.actionSheet.buttonContainer.css};
+`;
+
+const ActionSheetButtonText = styled.Text`
+  font-size: 18;
+  color: #388cea;
+  ${({ theme }) => theme.message.actionSheet.buttonText.css};
+`;
+
+const ActionSheetCancelButtonContainer = styled.View`
+  height: 50;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.message.actionSheet.cancelButtonContainer.css};
+`;
+const ActionSheetCancelButtonText = styled.Text`
+  font-size: 18;
+  color: red;
+  ${({ theme }) => theme.message.actionSheet.cancelButtonText.css};
+`;
+
 export const MessageContent = themed(
   class MessageContent extends React.PureComponent {
     static themePath = 'message.content';
@@ -126,6 +168,16 @@ export const MessageContent = themed(
       handleAction: PropTypes.func,
       /** Position of message. 'right' | 'left' */
       alignment: PropTypes.string,
+      /**
+       * Style object for actionsheet (used to message actions).
+       * Supported styles: https://github.com/beefe/react-native-actionsheet/blob/master/lib/styles.js
+       */
+      actionSheetStyles: PropTypes.object,
+      /**
+       * Custom UI component for attachment icon for type 'file' attachment.
+       * Defaults to: https://github.com/GetStream/stream-chat-react-native/blob/master/src/components/FileIcon.js
+       */
+      AttachmentFileIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     };
 
     static defaultProps = {
@@ -374,6 +426,7 @@ export const MessageContent = themed(
                   files={files}
                   handleAction={this.props.handleAction}
                   alignment={this.props.alignment}
+                  AttachmentFileIcon={this.props.AttachmentFileIcon}
                 />
               )}
               {images && images.length > 0 && (
@@ -428,11 +481,33 @@ export const MessageContent = themed(
               ref={(o) => {
                 this.ActionSheet = o;
               }}
-              title={<Text>Choose an action</Text>}
-              options={options.map((o) => o.title)}
+              title={
+                <ActionSheetTitleContainer>
+                  <ActionSheetTitleText>Choose an action</ActionSheetTitleText>
+                </ActionSheetTitleContainer>
+              }
+              options={[
+                ...options.map((o, i) => {
+                  if (i === 0) {
+                    return (
+                      <ActionSheetCancelButtonContainer>
+                        <ActionSheetCancelButtonText>
+                          Cancel
+                        </ActionSheetCancelButtonText>
+                      </ActionSheetCancelButtonContainer>
+                    );
+                  }
+                  return (
+                    <ActionSheetButtonContainer key={o.title}>
+                      <ActionSheetButtonText>{o.title}</ActionSheetButtonText>
+                    </ActionSheetButtonContainer>
+                  );
+                }),
+              ]}
               cancelButtonIndex={0}
               destructiveButtonIndex={0}
               onPress={(index) => this.onActionPress(options[index].id)}
+              styles={this.props.actionSheetStyles}
             />
           </Container>
         </MessageContentContext.Provider>
