@@ -64,6 +64,7 @@ const MessageList = withChannelContext(
         newMessagesNotification: false,
         online: props.online,
       };
+      this.yOffset = 0;
     }
 
     static propTypes = {
@@ -227,7 +228,7 @@ const MessageList = withChannelContext(
       }
 
       const hasNewMessage = currentLastMessage.id !== previousLastMessage.id;
-      const userScrolledUp = this.state.yOffset > 0;
+      const userScrolledUp = this.yOffset > 0;
       const isOwner = currentLastMessage.user.id === this.props.client.userID;
 
       let scrollToBottom = false;
@@ -497,8 +498,8 @@ const MessageList = withChannelContext(
       )
         this.props.markRead();
 
+      this.yOffset = yOffset;
       this.setState((prevState) => ({
-        yOffset,
         newMessagesNotification: removeNewMessageNotification
           ? false
           : prevState.newMessagesNotification,
@@ -543,20 +544,20 @@ const MessageList = withChannelContext(
       return (
         <React.Fragment>
           {// Mask for edit state
-            this.props.editing && this.props.disableWhileEditing && (
-              <TouchableOpacity
-                style={{
-                  position: 'absolute',
-                  backgroundColor: 'black',
-                  opacity: 0.4,
-                  height: '100%',
-                  width: '100%',
-                  zIndex: 100,
-                }}
-                collapsable={false}
-                onPress={this.props.clearEditingState}
-              />
-            )}
+          this.props.editing && this.props.disableWhileEditing && (
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                backgroundColor: 'black',
+                opacity: 0.4,
+                height: '100%',
+                width: '100%',
+                zIndex: 100,
+              }}
+              collapsable={false}
+              onPress={this.props.clearEditingState}
+            />
+          )}
           <View
             collapsable={false}
             style={{ flex: 1, alignItems: 'center', width: '100%' }}

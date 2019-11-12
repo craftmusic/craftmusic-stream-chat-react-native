@@ -28,8 +28,8 @@ export const MessageAvatar = ({ message, isMyMessage, groupStyles }) => {
           name={message.user.name || message.user.id}
         />
       ) : (
-          <Spacer />
-        )}
+        <Spacer />
+      )}
     </Container>
   );
 };

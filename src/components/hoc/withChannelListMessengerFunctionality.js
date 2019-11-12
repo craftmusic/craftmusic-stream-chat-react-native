@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { ChannelPreview } from '../ChannelPreview';
 import { ChannelPreviewMessenger } from '../ChannelPreviewMessenger';
-import PropTypes from 'prop-types';
 
 import { withChatContext } from '../../context';
 import { LoadingIndicator } from '../LoadingIndicator';

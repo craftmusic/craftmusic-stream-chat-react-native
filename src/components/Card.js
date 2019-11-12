@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View, Linking } from 'react-native';
+import { Image, View, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import giphyLogo from '../assets/Poweredby_100px-White_VertText.png';
 import { themed } from '../styles/theme';
@@ -30,8 +30,10 @@ const Footer = styled.View`
   border-top-width: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border: ${({ alignment, theme }) => alignment === 'right' ? '0' : 'solid 1px white'};
-  background-color: ${({ alignment, theme }) => alignment === 'right' ? theme.colors.primary : 'transparent'};
+  border-right: ${({ alignment }) =>
+    alignment === 'right' ? '0' : 'solid 1px white'};
+  background-color: ${({ alignment, theme }) =>
+    alignment === 'right' ? theme.colors.primary : 'transparent'};
   ${({ theme }) => theme.message.card.footer.css}
 `;
 
@@ -42,8 +44,8 @@ const Cover = styled.Image`
 `;
 
 const StyledText = styled.Text`
-  color: ${({ alignment, theme }) => alignment === 'right' ? 'black' : 'white'};
-`
+  color: ${({ alignment }) => (alignment === 'right' ? 'black' : 'white')};
+`;
 
 /**
  * UI component for card in attachments.
@@ -128,9 +130,13 @@ export const Card = withMessageContentContext(
                   flexDirection: 'column',
                 }}
               >
-                {title && <StyledText alignment={alignment}>{title}</StyledText>}
+                {title && (
+                  <StyledText alignment={alignment}>{title}</StyledText>
+                )}
                 {text && <StyledText alignment={alignment}>{text}</StyledText>}
-                <StyledText alignment={alignment}>{this.trimUrl(title_link || og_scrape_url)}</StyledText>
+                <StyledText alignment={alignment}>
+                  {this.trimUrl(title_link || og_scrape_url)}
+                </StyledText>
               </View>
               {type === 'giphy' && <Image source={giphyLogo} />}
             </Footer>

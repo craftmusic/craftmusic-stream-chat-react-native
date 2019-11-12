@@ -60,8 +60,8 @@ export const MessageTextContainer = (props) => {
   const textColor = isMyMessage(message) ? '#000' : '#fff';
   const textStyle = {
     text: {
-      color: textColor
-    }
+      color: textColor,
+    },
   };
 
   return (
@@ -75,8 +75,8 @@ export const MessageTextContainer = (props) => {
         {!MessageText ? (
           renderText(message, textStyle)
         ) : (
-            <MessageText {...props} renderText={renderText} />
-          )}
+          <MessageText {...props} renderText={renderText} />
+        )}
       </TextContainer>
     </React.Fragment>
   );

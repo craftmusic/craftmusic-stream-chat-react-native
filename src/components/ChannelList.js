@@ -18,6 +18,7 @@ export const isPromise = (thing) => {
   return promise;
 };
 
+export const DEFAULT_QUERY_CHANNELS_LIMIT = 10;
 /**
  * ChannelList - A preview list of channels, allowing you to select the channel you want to open.
  * This components doesn't provide any UI for the list. UI is provided by component `List` which should be
@@ -108,12 +109,12 @@ const ChannelList = withChatContext(
       LoadingIndicator,
       LoadingErrorIndicator,
       EmptyStateIndicator,
-      hasNextPage: true,
       filters: {},
       options: {},
       sort: {},
       // https://github.com/facebook/react-native/blob/a7a7970e543959e9db5281914d5f132beb01db8d/Libraries/Lists/VirtualizedList.js#L466
       loadMoreThreshold: 2,
+      logger: () => {},
     };
 
     constructor(props) {
@@ -123,6 +124,7 @@ const ChannelList = withChatContext(
         channels: Immutable([]),
         channelIds: Immutable([]),
         loadingChannels: true,
+        hasNextPage: true,
         refreshing: false,
         offset: 0,
       };
@@ -138,18 +140,38 @@ const ChannelList = withChatContext(
     }
 
     async componentDidMount() {
+      this.props.logger('ChannelList component', 'componentDidMount', {
+        tags: ['lifecycle', 'channellist'],
+        props: this.props,
+        state: this.state,
+      });
+
       await this._queryChannelsDebounced();
       this.listenToChanges();
     }
 
+    componentDidUpdate() {
+      this.props.logger('ChannelList component', 'componentDidUpdate', {
+        tags: ['lifecycle', 'channellist'],
+        props: this.props,
+        state: this.state,
+      });
+    }
+
     componentWillUnmount() {
+      this.props.logger('ChannelList component', 'componentWillUnmount', {
+        tags: ['lifecycle', 'channellist'],
+        props: this.props,
+        state: this.state,
+      });
+
       this._unmounted = true;
       this.props.client.off(this.handleEvent);
       this._queryChannelsDebounced.cancel();
     }
 
-    static getDerivedStateFromError() {
-      return { error: true };
+    static getDerivedStateFromError(error) {
+      return { error };
     }
 
     componentDidCatch(error, info) {
@@ -157,8 +179,8 @@ const ChannelList = withChatContext(
     }
 
     queryChannels = async (resync = false) => {
-      // Don't query again if query is already active.
-      if (this.queryActive) return;
+      // Don't query again if query is already active or there are no more results.
+      if (this.queryActive || !this.state.hasNextPage) return;
 
       this.queryActive = true;
 
@@ -182,6 +204,17 @@ const ChannelList = withChatContext(
 
       if (this._unmounted) return;
       this.setState({ refreshing: true });
+      this.props.logger('ChannelList component', 'queryChannels', {
+        tags: ['channellist'],
+        props: this.props,
+        state: this.state,
+        query: {
+          filters,
+          sort,
+          ...options,
+          offset,
+        },
+      });
 
       const channelPromise = this.props.client.queryChannels(filters, sort, {
         ...options,
@@ -225,7 +258,10 @@ const ChannelList = withChatContext(
             loadingChannels: false,
             offset: channels.length,
             hasNextPage:
-              channelQueryResponse.length >= options.limit ? true : false,
+              channelQueryResponse.length >=
+              (options.limit || DEFAULT_QUERY_CHANNELS_LIMIT)
+                ? true
+                : false,
             refreshing: false,
           };
         });
@@ -233,7 +269,7 @@ const ChannelList = withChatContext(
         console.warn(e);
 
         if (this._unmounted) return;
-        this.setState({ error: true, refreshing: false });
+        this.setState({ error: e, refreshing: false });
       }
       this.queryActive = false;
     };

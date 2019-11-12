@@ -1,6 +1,6 @@
 {
   "name": "craftmusic-stream-chat-react-native",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "author": {
     "company": "Stream.io Inc"
   },
@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.0",
-    "craftmusic-stream-chat-react-native-core": "v0.3.7",
+    "craftmusic-stream-chat-react-native-core": "v0.3.8",
     "es6-symbol": "^3.1.1"
   },
   "peerDependencies": {

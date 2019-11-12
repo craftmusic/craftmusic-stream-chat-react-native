@@ -10,7 +10,7 @@ export const renderText = (message, styles) => {
   if (styles) {
     markdownStyles = {
       ...markdownStyles,
-      ...styles
+      ...styles,
     };
   }
   // take the @ mentions and turn them into markdown?
