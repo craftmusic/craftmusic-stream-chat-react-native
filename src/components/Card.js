@@ -30,7 +30,7 @@ const Footer = styled.View`
   border-top-width: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-right: ${({ alignment }) =>
+  border: ${({ alignment }) =>
     alignment === 'right' ? '0' : 'solid 1px white'};
   background-color: ${({ alignment, theme }) =>
     alignment === 'right' ? theme.colors.primary : 'transparent'};

@@ -39,8 +39,8 @@ export const SendButton = themed(
           {editing ? (
             <SendButtonIcon source={iconEdit} />
           ) : (
-            <SendButtonIcon source={iconSendNewMessage} />
-          )}
+              <SendButtonIcon source={iconSendNewMessage} />
+            )}
         </Container>
       );
     }

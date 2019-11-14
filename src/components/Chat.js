@@ -34,7 +34,7 @@ export const Chat = themed(
     };
 
     static defaultProps = {
-      logger: () => {},
+      logger: () => { },
     };
 
     constructor(props) {
