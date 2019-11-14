@@ -177,7 +177,10 @@ const MessageInput = withKeyboardContext(
              * Defaults to and accepts same props as: [SendButton](https://getstream.github.io/stream-chat-react-native/#sendbutton)
              * */
             SendButton: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-            AttachButtonIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+            AttachButtonIcon: PropTypes.oneOfType([
+              PropTypes.node,
+              PropTypes.func,
+            ]),
             /**
              * Additional props for underlying TextInput component. These props will be forwarded as it is to TextInput component.
              *
@@ -203,7 +206,7 @@ const MessageInput = withKeyboardContext(
             hasImagePicker: true,
             hasFilePicker: true,
             SendButton,
-            AttachButtonIcon: <AttachButtonIcon source={iconAddAttachment} />
+            AttachButtonIcon: <AttachButtonIcon source={iconAddAttachment} />,
           };
 
           getMessageDetailsForState = (message) => {
@@ -691,7 +694,12 @@ const MessageInput = withKeyboardContext(
             this.attachActionSheet.hide();
           };
           render() {
-            const { hasImagePicker, hasFilePicker, SendButton, AttachButtonIcon } = this.props;
+            const {
+              hasImagePicker,
+              hasFilePicker,
+              SendButton,
+              AttachButtonIcon,
+            } = this.props;
             let editingBoxStyles = {};
             if (this.props.editing) {
               editingBoxStyles = {
