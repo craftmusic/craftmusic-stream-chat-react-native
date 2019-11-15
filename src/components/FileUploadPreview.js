@@ -65,7 +65,7 @@ export class FileUploadPreview extends React.PureComponent {
             marginBottom: 5,
             borderColor: '#EBEBEB',
             borderWidth: 0.5,
-            ...this.props.style
+            ...this.props.style,
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
