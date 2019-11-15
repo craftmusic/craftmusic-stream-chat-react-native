@@ -118,6 +118,9 @@ export const MessageSimple = themed(
 
     static themePath = 'message';
 
+    componentDidMount() {
+      console.log('inside of messageSimple');
+    }
     render() {
       const {
         message,
@@ -160,11 +163,11 @@ export const MessageSimple = themed(
               {showMessageStatus && <MessageStatus {...this.props} />}
             </React.Fragment>
           ) : (
-            <React.Fragment>
-              <MessageAvatar {...this.props} />
-              <MessageContent {...this.props} alignment={pos} />
-            </React.Fragment>
-          )}
+              <React.Fragment>
+                <MessageAvatar {...this.props} />
+                <MessageContent {...this.props} alignment={pos} />
+              </React.Fragment>
+            )}
         </Container>
       );
     }

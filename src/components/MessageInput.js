@@ -192,6 +192,8 @@ const MessageInput = withKeyboardContext(
              * Supported styles: https://github.com/beefe/react-native-actionsheet/blob/master/lib/styles.js
              */
             actionSheetStyles: PropTypes.object,
+            iconSquareStyle: PropTypes.object,
+            fileUploadPreviewStyle: PropTypes.object,
             /**
              * Custom UI component for attachment icon for type 'file' attachment in preview.
              * Defaults to and accepts same props as: https://github.com/GetStream/stream-chat-react-native/blob/master/src/components/FileIcon.js
@@ -207,6 +209,8 @@ const MessageInput = withKeyboardContext(
             hasFilePicker: true,
             SendButton,
             AttachButtonIcon: <AttachButtonIcon source={iconAddAttachment} />,
+            iconSquareStyle: {},
+            fileUploadPreviewStyle: {},
           };
 
           getMessageDetailsForState = (message) => {
@@ -699,6 +703,7 @@ const MessageInput = withKeyboardContext(
               hasFilePicker,
               SendButton,
               AttachButtonIcon,
+              iconSquareStyle,
             } = this.props;
             let editingBoxStyles = {};
             if (this.props.editing) {
@@ -745,6 +750,7 @@ const MessageInput = withKeyboardContext(
                           (id) => this.state.fileUploads[id],
                         )}
                         AttachmentFileIcon={this.props.AttachmentFileIcon}
+                        style={this.props.fileUploadPreviewStyle}
                       />
                     )}
                     {this.state.imageUploads && (
@@ -785,6 +791,7 @@ const MessageInput = withKeyboardContext(
                             <IconSquare
                               icon={iconClose}
                               onPress={this.closeAttachActionSheet}
+                              style={iconSquareStyle}
                             />
                           </ActionSheetTitleContainer>
                         }
@@ -792,10 +799,12 @@ const MessageInput = withKeyboardContext(
                           /* eslint-disable */
                           <AttachmentActionSheetItem
                             icon={iconGallery}
+                            iconSquareStyle={iconSquareStyle}
                             text="Upload a photo"
                           />,
                           <AttachmentActionSheetItem
                             icon={iconFolder}
+                            iconSquareStyle={iconSquareStyle}
                             text="Upload a file"
                           />,
                           /* eslint-enable */
@@ -814,6 +823,7 @@ const MessageInput = withKeyboardContext(
                             }
                           }, 1);
                         }}
+                        buttonUnderlayColor={this.props.buttonUnderlayColor}
                         styles={this.props.actionSheetStyles}
                       />
                       <AutoCompleteInput
@@ -853,9 +863,9 @@ const MessageInput = withKeyboardContext(
 
 export { MessageInput };
 
-const AttachmentActionSheetItem = ({ icon, text }) => (
+const AttachmentActionSheetItem = ({ icon, text, iconSquareStyle }) => (
   <ActionSheetButtonContainer>
-    <IconSquare icon={icon} />
+    <IconSquare icon={icon} style={iconSquareStyle} />
     <ActionSheetButtonText>{text}</ActionSheetButtonText>
   </ActionSheetButtonContainer>
 );

@@ -68,7 +68,9 @@ export const AttachmentActions = themed(
       /** The handler to execute after selecting an action */
       actionHandler: PropTypes.func.isRequired,
     };
-
+    componentDidMount() {
+      console.log('ATTACHMENT ACTIONS');
+    }
     render() {
       const { id, actions, actionHandler } = this.props;
       return (
