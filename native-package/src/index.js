@@ -44,7 +44,7 @@ registerNativeHandlers({
   },
   pickImage: () =>
     new Promise((resolve, reject) => {
-      ImagePicker.showImagePicker(null, (response) => {
+      ImagePicker.showImagePicker({ tintColor: '#000' }, (response) => {
         if (response.error) {
           reject(Error(response.error));
         }
