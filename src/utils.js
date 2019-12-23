@@ -7,12 +7,6 @@ import { CommandsItem } from './components/CommandsItem';
 import Markdown from '@stream-io/react-native-simple-markdown';
 
 export const renderText = (message, styles) => {
-  if (styles) {
-    markdownStyles = {
-      ...markdownStyles,
-      ...styles,
-    };
-  }
   // take the @ mentions and turn them into markdown?
   // translate links
   let { text } = message;
@@ -44,11 +38,15 @@ export const renderText = (message, styles) => {
   }
 
   newText = newText.replace(/[<&"'>]/g, '\\$&');
+  const markdownStyles = {
+    ...defaultMarkdownStyles,
+    ...styles,
+  };
 
   return <Markdown styles={markdownStyles}>{newText}</Markdown>;
 };
 
-let markdownStyles = {
+const defaultMarkdownStyles = {
   link: {
     color: 'blue',
     textDecorationLine: 'underline',
